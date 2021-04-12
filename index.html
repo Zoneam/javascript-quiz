@@ -12,17 +12,23 @@
 <body>
     <p class="highscores">View Highscores</p>
     <p class="timer">Timer: <span class="timer-time">0</span></p>
+    <div class="challange-text">
+        <p>Coding Quiz Challange</p>
+        <p>Try to answer the following Code-related questions within the time limit. Keep in mind that incorrect answers
+            will penalize your scoretime.</p>
+    </div>
+    <button class="start-quiz">Start Quiz</button>
     <div class="question-card">
 
         <form id="question-form">
-            <p class="question-paragraph">Question ?</p>
+            <p class="question-paragraph">Arrays in JavaScript can be used to store ______.</p>
         </form>
-        <ul id="todo-list">
-            <li>dfgd</li>
-            <li>fdgdfgh</li>
-            <li>fgfghjkhg</li>
-            <li>fgfghjkhg</li>
-        </ul>
+        <ol id="answers-list">
+            <li>Numbers and Strings</li>
+            <li>Other arrays</li>
+            <li>Booleans</li>
+            <li>All of the above</li>
+        </ol>
     </div>
     <script src="./script.js"></script>
 </body>

@@ -8,9 +8,8 @@ p {
   font-size: 30px;
 }
 
-ul {
-  list-style-type: none;
-  padding: 0;
+ol {
+  padding: 15px;
 }
 
 li {
@@ -31,6 +30,36 @@ li:hover {
   background-color: #1c83c8;
   cursor: pointer;
 }
+.challange-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #d6dbf3;
+  border: 1px solid #1c83c8;
+  border-radius: 8px;
+  box-shadow: rgba(60, 64, 67, 2) 0 1px 2px 0,
+    rgba(42, 43, 44, 0.15) 0 2px 4px 3px;
+  margin: 50px auto;
+  padding: 20px;
+  width: 60vw;
+}
+
+.challange-text p {
+  font-size: 24px;
+}
+.challange-text p:nth-child(1) {
+  font-size: 35px;
+}
+
+.start-quiz {
+  height: 100px;
+  width: 200px;
+  display: block;
+  margin-left: 40%;
+  font-size: 1.5em;
+}
+
 .timer,
 .highscores {
   display: inline-block;
@@ -38,7 +67,7 @@ li:hover {
 }
 
 .question-card {
-  display: block;
+  display: none;
   background-color: #d6dbf3;
   border: 1px solid #1c83c8;
   border-radius: 8px;
