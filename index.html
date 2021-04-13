@@ -17,17 +17,18 @@
         <p>Try to answer the following Code-related questions within the time limit. Keep in mind that incorrect answers
             will penalize your scoretime.</p>
     </div>
-    <button class="start-quiz">Start Quiz</button>
+    <button onclick="start()" class="start-quiz">Start Quiz</button>
     <div class="question-card">
 
         <form id="question-form">
-            <p class="question-paragraph">Arrays in JavaScript can be used to store ______.</p>
+            <p class="question-paragraph"></p>
+            <input class="email" type="email">
         </form>
-        <ol id="answers-list">
-            <li>Numbers and Strings</li>
-            <li>Other arrays</li>
-            <li>Booleans</li>
-            <li>All of the above</li>
+        <ol id="answers-list" type="A">
+            <!-- <li>Console log</li>
+            <li>Terminal / Bash</li>
+            <li>For loops</li>
+            <li>JavaScript</li> -->
         </ol>
     </div>
     <script src="./script.js"></script>

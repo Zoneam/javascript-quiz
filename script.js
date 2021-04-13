@@ -1,53 +1,61 @@
 let timerTime = document.querySelector(".timer-time");
 let highscores = document.querySelector(".highscores");
 let questionParagraph = document.querySelector(".question-paragraph");
-let answers = document.querySelector(".answers-list");
+let answers = document.querySelector("#answers-list");
 let startButton = document.querySelector(".start-quiz");
 let challengeText = document.querySelector(".challange-text");
 let questionCard = document.querySelector(".question-card")
-
+let liItems = document.querySelectorAll("li");
+let eMail = document.querySelector(".email");
 let questionsAndAnswers = [
-    {
+{
         question: "A very useful tool used during development and debugging for printing content to the debugger is:",
-        answer1: "1. JavaScript",
-        answer2: "2. Terminal / Bash",
-        answer3: "3. For loops",
-        answer4: "4. Console log",
-        correctAnswer: "answer1"
+        answer: ["Console log","Terminal / Bash","For loops","JavaScript"],
+        correctAnswer: "1"
 },{
         question: "Arrays in JavaScript can be used to store ______.",
-        answer1: "1. Numbers and Strings",
-        answer2: "2. Other arrays",
-        answer3: "3. Booleans",
-        answer4: "4. All of the above",
-        correctAnswer: "answer4"
+        answer: ["Numbers and Strings","Other arrays","Booleans","All of the above"],
+        correctAnswer: "4"
 },{
         question: "String values must be enclosed within _____ when being assigned to variables.",
-        answer1: "1. Commas",
-        answer2: "2. Curly brackets",
-        answer3: "3. Quotes",
-        answer4: "4. Parentheses",
-        correctAnswer: "answer3"
+        answer: ["Commas","Curly brackets","Quotes","Parentheses"],
+        correctAnswer: "3"
 },{
         question: "Commonly used data types DO NOT include:",
-        answer1: "1. Strings",
-        answer2: "2. Booleans",
-        answer3: "3. Alerts",
-        answer4: "4. Numbers",
-        correctAnswer: "answer3"
+        answer: ["Strings","Booleans","Alerts","Numbers"],
+        correctAnswer: "3"
 },{
         question: "The condition in an in / else statement is enclosed within ______.",
-        answer1: "1. Quotes",
-        answer2: "2. Curly Brackets",
-        answer3: "3. Parentheses",
-        answer4: "4. Square Brackets",
-        correctAnswer: "answer2"
+        answer: ["Quotes","Curly Brackets","Parentheses","Square Brackets"],
+        correctAnswer: "2"
 }];
 
 
-startButton.addEventListener("click", function(event){
+function start(){
     challengeText.style = "display: none";
     startButton.style = "display: none";
     questionCard.style = "display: block";
-});
+for (var i=0; i < questionsAndAnswers[0].answer.length; i++){
+        var li = document.createElement("li");
+        questionParagraph.innerHTML = questionsAndAnswers[0].question;
+        li.textContent = questionsAndAnswers[0].answer[i];
+        answers.appendChild(li);
+}
+        var y=1;
+    answers.addEventListener("click", function(){
+            if (y==questionsAndAnswers.length){
+                answers.remove();
+                questionParagraph.innerHTML = "Please enter your Email";
+                eMail.style = "display: inline-block"
+                return
+            }
+        for (var i=0; i<=questionsAndAnswers[y].answer.length-1; i++){
+                questionParagraph.innerHTML = questionsAndAnswers[y].question;
+                answers.children[i].textContent = questionsAndAnswers[y].answer[i];
+        }
+        y++;
+        })
+   
+};
+
 

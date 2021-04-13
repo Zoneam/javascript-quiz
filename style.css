@@ -5,20 +5,28 @@ body {
 }
 
 p {
-  font-size: 30px;
+  font-size: 25px;
+  display: inline-block;
 }
 
 ol {
   padding: 15px;
 }
 
+.email {
+  display: none;
+  width: 250px;
+  height: 30px;
+  font-size: large;
+}
+
 li {
   height: 25px;
   margin-top: 5px;
   margin-bottom: 15px;
-  padding-left: 20px;
+  margin-left: 50px;
   padding: 5px;
-  padding-left: 20px;
+  width: fit-content;
   background-color: #161553;
   border-radius: 20px;
   color: white;
