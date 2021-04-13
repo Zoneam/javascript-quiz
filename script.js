@@ -6,7 +6,11 @@ let startButton = document.querySelector(".start-quiz");
 let challengeText = document.querySelector(".challange-text");
 let questionCard = document.querySelector(".question-card")
 let liItems = document.querySelectorAll("li");
-let eMail = document.querySelector(".email");
+let initials = document.querySelector(".initials");
+
+let submitButton = document.querySelector(".submit-initials");
+
+
 let questionsAndAnswers = [
 {
         question: "A very useful tool used during development and debugging for printing content to the debugger is:",
@@ -31,22 +35,32 @@ let questionsAndAnswers = [
 }];
 
 
+
+        submitButton.addEventListener("click", function(event){
+                event.preventDefault();
+                localStorage.setItem(initials.value, 'score');
+
+
+        })
+
+
 function start(){
     challengeText.style = "display: none";
     startButton.style = "display: none";
     questionCard.style = "display: block";
-for (var i=0; i < questionsAndAnswers[0].answer.length; i++){
-        var li = document.createElement("li");
-        questionParagraph.innerHTML = questionsAndAnswers[0].question;
-        li.textContent = questionsAndAnswers[0].answer[i];
-        answers.appendChild(li);
-}
-        var y=1;
-    answers.addEventListener("click", function(){
-            if (y==questionsAndAnswers.length){
-                answers.remove();
-                questionParagraph.innerHTML = "Please enter your Email";
-                eMail.style = "display: inline-block"
+        for (var i=0; i < questionsAndAnswers[0].answer.length; i++){
+                var li = document.createElement("li");
+                questionParagraph.innerHTML = questionsAndAnswers[0].question;
+                li.textContent = questionsAndAnswers[0].answer[i];
+                answers.appendChild(li);
+        }
+                var y=1;
+                answers.addEventListener("click", function(){
+                if (y==questionsAndAnswers.length){
+                        answers.remove();
+                        questionParagraph.innerHTML = "Please enter your initials:";
+                        initials.style = "display: inline-block";
+                        submitButton.style = "display: inline-block";
                 return
             }
         for (var i=0; i<=questionsAndAnswers[y].answer.length-1; i++){
