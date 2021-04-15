@@ -91,3 +91,11 @@ li:hover {
   padding: 20px;
   width: 85vw;
 }
+
+#highscores-list {
+  background-color: #161553;
+  color: antiquewhite;
+  font-size: 42px;
+  border-radius: 25px;
+  display: none;
+}
