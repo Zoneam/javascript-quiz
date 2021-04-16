@@ -26,6 +26,13 @@ ol {
   height: 27px;
   margin-left: 30px;
 }
+
+.try-again {
+  display: none;
+  width: 114px;
+  height: 27px;
+  margin-left: 30px;
+}
 li {
   height: 25px;
   margin-top: 5px;
