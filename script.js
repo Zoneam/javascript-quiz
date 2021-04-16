@@ -11,13 +11,14 @@ let submitButton = document.querySelector(".submit-initials");
 let highscoresList = document.querySelector("#highscores-list");
 let correctOrIncorrect = document.querySelector(".correct-or-incorrect");
 let tryAgain = document.querySelector(".try-again")
+let savedClass = {
+        name: [],
+        score: []
+}
 let storedHighscores = JSON.parse(localStorage.getItem("Highscores")) || [];
-
 let quizTimer = 60;
 timer.textContent = "Time: "+ quizTimer + " Seconds left";
 let timeLeft;
-
-
 let questionsAndAnswers = [
 {
         question: "A very useful tool used during development and debugging for printing content to the debugger is:",
@@ -43,13 +44,40 @@ let questionsAndAnswers = [
 
 
 //------------------- Writing in local memory ---------------------------
+
+function displayHighscores(){
+        for (var i=0; i < storedHighscores.length; i++){
+                var li = document.createElement("li");
+                li.textContent = storedHighscores[i].name + storedHighscores[i].score;
+                highscoresList.appendChild(li);
+        }
+}
+
+highscores.addEventListener("click", function(event){
+        event.preventDefault();
+        endOfQuiz();
+        timeLeft = 0;
+        timer.textContent = "";
+        highscores.style = "display: none"
+})
+
+
+
 submitButton.addEventListener("click", function(event){
         event.preventDefault();
         if (initials.value != ""){
-          storedHighscores.push(initials.value);
-          localStorage.setItem("Highscores", JSON.stringify(storedHighscores));
-           console.log("storedHighscores: ",storedHighscores)
-           highscoresList.style = "display: block"
+        savedClass.name = initials.value;
+        savedClass.score = 25;
+        storedHighscores.push(savedClass);
+        localStorage.setItem("Highscores", JSON.stringify(storedHighscores));
+        storedHighscores = JSON.parse(localStorage.getItem("Highscores"));
+        console.log("storedHighscores: ",storedHighscores)
+        displayHighscores();
+        highscoresList.style = "display: block";
+        initials.style =  "display: none";
+        submitButton.style = "display: none";
+        highscores.style = "display: none"
+        questionParagraph.innerHTML = "Thank you " + initials.value + " for submission ! ";
         }        
 })
 
@@ -57,12 +85,16 @@ submitButton.addEventListener("click", function(event){
 function endOfQuiz(){
         answers.remove();
         correctOrIncorrect.style="display: none"
-        questionParagraph.innerHTML = "Please enter your initials:";
+        questionParagraph.innerHTML = "Please enter your name:";
         initials.style = "display: inline-block";
         submitButton.style = "display: inline-block";
         tryAgain.style = "display: inline-block";
+        if (timer.innerHTML != "Time is Up"){
+        timer.style = "display: none";
+        }
+        console.log(timer.innerHTML);
+        
 }
-
   //---------------------------- Creating Questions -----------------------
 function createQuestions() {
             for (var i=0; i < questionsAndAnswers[0].answer.length; i++){
@@ -80,18 +112,22 @@ function myTimer(){
                 if(timeLeft <= 0 ){
                         clearInterval(timeInterval);
                         timeLeft = quizTimer;
-                        timer.textContent = "Time is Up"
+                        timer.innerHTML = "Time is Up"
                         endOfQuiz()
+                        
                 }
     
         }, 1000)
 }
+
 ///------------------Start---------------------------
 function start(){
         timeLeft = quizTimer;
         challengeText.style = "display: none";
         startButton.style = "display: none";
         questionCard.style = "display: block";
+        highscores.style = "display: inline-block"
+        timer.style = "display: inline-block"
         var y = 1;
         var a = 0;
 //----------------
