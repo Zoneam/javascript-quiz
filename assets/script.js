@@ -1,4 +1,7 @@
 let timer = document.querySelector("#timer");
+let timeInterval;
+let timeScore;
+let questionScore = 0;
 let highscores = document.querySelector(".highscores");
 let questionParagraph = document.querySelector(".question-paragraph");
 let answers = document.querySelector("#answers-list");
@@ -37,47 +40,60 @@ let questionsAndAnswers = [
         answer: ["Strings","Booleans","Alerts","Numbers"],
         correctAnswer: "Alerts"
 },{
-        question: "The condition in an in / else statement is enclosed within ______.",
+        question: "The condition in an if / else statement is enclosed within ______.",
         answer: ["Quotes","Curly Brackets","Parentheses","Square Brackets"],
-        correctAnswer: "Curly Brackets"
+        correctAnswer: "Parentheses"
 }];
-
 
 //------------------- Writing in local memory ---------------------------
 
 function displayHighscores(){
-        for (var i=0; i < storedHighscores.length; i++){
+//-----------------------Sorting -----------------
+       var sortByScore = storedHighscores.slice(0);
+       sortByScore.sort(function(a,b) {
+           return b.score - a.score;
+       }); 
+        for (var i=0; i < sortByScore.length; i++){
                 var li = document.createElement("li");
-                li.textContent = storedHighscores[i].name + storedHighscores[i].score;
+                li.textContent = sortByScore[i].name + " ---------- " + sortByScore[i].score;
                 highscoresList.appendChild(li);
         }
 }
 
 highscores.addEventListener("click", function(event){
         event.preventDefault();
-        endOfQuiz();
-        timeLeft = 0;
-        timer.textContent = "";
-        highscores.style = "display: none"
+        answers.remove();
+        correctOrIncorrect.style="display: none"
+        initials.style = "display: none";
+        submitButton.style = "display: none";
+        tryAgain.style = "display: inline-block";
+        timer.style = "display: none";
+        questionParagraph.innerHTML = "Click button to start over !";
+        clearInterval(timeInterval);
 })
 
-
-
+///------------------Submit button click---------------------------
 submitButton.addEventListener("click", function(event){
         event.preventDefault();
+        let myScore = 0;
         if (initials.value != ""){
-        savedClass.name = initials.value;
-        savedClass.score = 25;
-        storedHighscores.push(savedClass);
-        localStorage.setItem("Highscores", JSON.stringify(storedHighscores));
-        storedHighscores = JSON.parse(localStorage.getItem("Highscores"));
-        console.log("storedHighscores: ",storedHighscores)
-        displayHighscores();
-        highscoresList.style = "display: block";
-        initials.style =  "display: none";
-        submitButton.style = "display: none";
-        highscores.style = "display: none"
-        questionParagraph.innerHTML = "Thank you " + initials.value + " for submission ! ";
+                if (questionScore != 0 && timeScore !=0 ){
+                myScore = (timeScore * questionScore) / questionsAndAnswers.length;
+                } else {
+                        myScore = 0;
+                }
+                console.log("score: ",myScore)
+                savedClass.name = initials.value;
+                savedClass.score = myScore;
+                storedHighscores.push(savedClass);
+                localStorage.setItem("Highscores", JSON.stringify(storedHighscores));
+                storedHighscores = JSON.parse(localStorage.getItem("Highscores"));
+                displayHighscores();
+                highscoresList.style = "display: block";
+                initials.style =  "display: none";
+                submitButton.style = "display: none";
+                highscores.style = "display: none"
+                questionParagraph.innerHTML = "Thank you " + initials.value + " for your submission ! ";
         }        
 })
 
@@ -91,10 +107,10 @@ function endOfQuiz(){
         tryAgain.style = "display: inline-block";
         if (timer.innerHTML != "Time is Up"){
         timer.style = "display: none";
-        }
-        console.log(timer.innerHTML);
-        
+        } 
+        clearInterval(timeInterval);
 }
+
   //---------------------------- Creating Questions -----------------------
 function createQuestions() {
             for (var i=0; i < questionsAndAnswers[0].answer.length; i++){
@@ -105,9 +121,11 @@ function createQuestions() {
         }
 }
 //---------------------------- Creating Timer -----------------------
+
 function myTimer(){
-        let timeInterval = setInterval(function() {
+        timeInterval = setInterval(function() {
                 timeLeft--;
+                timeScore = timeLeft;
                 timer.textContent = "Time: " + timeLeft + " Seconds left";
                 if(timeLeft <= 0 ){
                         clearInterval(timeInterval);
@@ -122,6 +140,8 @@ function myTimer(){
 
 ///------------------Start---------------------------
 function start(){
+        questionScore = 0;
+        timeScore = 0;
         timeLeft = quizTimer;
         challengeText.style = "display: none";
         startButton.style = "display: none";
@@ -130,7 +150,6 @@ function start(){
         timer.style = "display: inline-block"
         var y = 1;
         var a = 0;
-//----------------
         createQuestions()
         myTimer()
         answers.addEventListener("click", function(event){
@@ -138,14 +157,14 @@ function start(){
                 if (checkLi.matches("li") === true) {
                                 
                         if (checkLi.innerHTML == questionsAndAnswers[a].correctAnswer)   {
-                                // correctOrIncorrect.style="display: block"
+                                questionScore ++;
                                 correctOrIncorrect.innerHTML = "Correct !"
                         } else {
-                                // correctOrIncorrect.style="display: block"
                                 correctOrIncorrect.innerHTML = "Incorrect !"
                                 timeLeft -= 10; 
                         }
                         a++;
+                        console.log("Questions score: ", questionScore);
                 if (y == questionsAndAnswers.length){
                         endOfQuiz();
                         timeLeft = 0;
