@@ -23,6 +23,23 @@ let quizTimer = 60;
 timer.textContent = "Time: "+ quizTimer + " Seconds left";
 let timeLeft;
 let questionsAndAnswers = [
+        {
+                question: "A very useful tool used during development and debugging for printing content to the debugger is:",
+                answer: ["Console log","Terminal / Bash","For loops","JavaScript"],
+                correctAnswer: "Console log"
+        },{
+                question: "A very useful tool used during development and debugging for printing content to the debugger is:",
+                answer: ["Console log","Terminal / Bash","For loops","JavaScript"],
+                correctAnswer: "Console log"
+        },{
+                question: "A very useful tool used during development and debugging for printing content to the debugger is:",
+                answer: ["Console log","Terminal / Bash","For loops","JavaScript"],
+                correctAnswer: "Console log"
+        },{
+                question: "A very useful tool used during development and debugging for printing content to the debugger is:",
+                answer: ["Console log","Terminal / Bash","For loops","JavaScript"],
+                correctAnswer: "Console log"
+        },
 {
         question: "A very useful tool used during development and debugging for printing content to the debugger is:",
         answer: ["Console log","Terminal / Bash","For loops","JavaScript"],
@@ -49,6 +66,8 @@ let questionsAndAnswers = [
 
 function displayHighscores(){
 //-----------------------Sorting -----------------
+        storedHighscores = JSON.parse(localStorage.getItem("Highscores"));
+        highscoresList.style = "display: block";
        var sortByScore = storedHighscores.slice(0);
        sortByScore.sort(function(a,b) {
            return b.score - a.score;
@@ -59,7 +78,6 @@ function displayHighscores(){
                 highscoresList.appendChild(li);
         }
 }
-
 highscores.addEventListener("click", function(event){
         event.preventDefault();
         answers.remove();
@@ -70,6 +88,7 @@ highscores.addEventListener("click", function(event){
         timer.style = "display: none";
         questionParagraph.innerHTML = "Click button to start over !";
         clearInterval(timeInterval);
+        displayHighscores()
 })
 
 ///------------------Submit button click---------------------------
@@ -77,19 +96,22 @@ submitButton.addEventListener("click", function(event){
         event.preventDefault();
         let myScore = 0;
         if (initials.value != ""){
-                if (questionScore != 0 && timeScore !=0 ){
-                myScore = (timeScore * questionScore) / questionsAndAnswers.length;
+                if (questionScore != 0 && timeScore != 0 && timeScore >= 0){
+                myScore = Math.round((timeScore * questionScore) / questionsAndAnswers.length);
                 } else {
                         myScore = 0;
                 }
-                console.log("score: ",myScore)
+
+                console.log("timeScore: ",timeScore)
+                console.log("questionScore: ",questionScore)
+                console.log("myScore: ",myScore)
                 savedClass.name = initials.value;
                 savedClass.score = myScore;
                 storedHighscores.push(savedClass);
                 localStorage.setItem("Highscores", JSON.stringify(storedHighscores));
-                storedHighscores = JSON.parse(localStorage.getItem("Highscores"));
+                // storedHighscores = JSON.parse(localStorage.getItem("Highscores"));
                 displayHighscores();
-                highscoresList.style = "display: block";
+                
                 initials.style =  "display: none";
                 submitButton.style = "display: none";
                 highscores.style = "display: none"
