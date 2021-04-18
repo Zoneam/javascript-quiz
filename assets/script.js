@@ -19,31 +19,32 @@ let savedClass = {
         score: []
 }
 let storedHighscores = JSON.parse(localStorage.getItem("Highscores")) || [];
-let quizTimer = 60;
+let quizTimer = 72;
 timer.textContent = "Time: "+ quizTimer + " Seconds left";
 let timeLeft;
+//-------------------------- Questions ------------------------
 let questionsAndAnswers = [
-        {
-                question: "A very useful tool used during development and debugging for printing content to the debugger is:",
-                answer: ["Console log","Terminal / Bash","For loops","JavaScript"],
-                correctAnswer: "Console log"
-        },{
-                question: "A very useful tool used during development and debugging for printing content to the debugger is:",
-                answer: ["Console log","Terminal / Bash","For loops","JavaScript"],
-                correctAnswer: "Console log"
-        },{
-                question: "A very useful tool used during development and debugging for printing content to the debugger is:",
-                answer: ["Console log","Terminal / Bash","For loops","JavaScript"],
-                correctAnswer: "Console log"
-        },{
-                question: "A very useful tool used during development and debugging for printing content to the debugger is:",
-                answer: ["Console log","Terminal / Bash","For loops","JavaScript"],
-                correctAnswer: "Console log"
-        },
 {
         question: "A very useful tool used during development and debugging for printing content to the debugger is:",
         answer: ["Console log","Terminal / Bash","For loops","JavaScript"],
         correctAnswer: "Console log"
+},{
+        question: "Which built-in method returns the character at the specified index?",
+        answer: ["characterAt()","getCharAt()","charAt()","None of the above"],
+        correctAnswer: "charAt()"
+},{
+        question: "Which of the following function of Number object forces a number to display in exponential notation?",
+        answer: ["toExponential()","toFixed()","toPrecision()","toLocaleString()"],
+        correctAnswer: "toExponential()"
+},{
+        question: "Which of the following function of Boolean object returns a string of either 'true' or 'false' depending upon the value of the object?",
+        answer: ["toSource()","valueOf()","toString()","None of the above"],
+        correctAnswer: "toString()"
+},
+{
+        question: "Which of the following function of String object causes a string to be italic, as if it were in an <i> tag?",
+        answer: ["fixed()","fontcolor()","fontsize()","italics()"],
+        correctAnswer: "italics()"
 },{
         question: "Arrays in JavaScript can be used to store ______.",
         answer: ["Numbers and Strings","Other arrays","Booleans","All of the above"],
@@ -68,6 +69,7 @@ function displayHighscores(){
 //-----------------------Sorting -----------------
         storedHighscores = JSON.parse(localStorage.getItem("Highscores"));
         highscoresList.style = "display: block";
+        highscores.style = "display: none";
        var sortByScore = storedHighscores.slice(0);
        sortByScore.sort(function(a,b) {
            return b.score - a.score;
@@ -77,6 +79,8 @@ function displayHighscores(){
                 li.textContent = sortByScore[i].name + " ---------- " + sortByScore[i].score;
                 highscoresList.appendChild(li);
         }
+
+
 }
 highscores.addEventListener("click", function(event){
         event.preventDefault();
