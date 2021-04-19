@@ -20,7 +20,7 @@ let savedClass = {
 }
 let storedHighscores = JSON.parse(localStorage.getItem("Highscores")) || [];
 let quizTimer = 72;
-timer.textContent = "Time: "+ quizTimer + " Seconds left";
+timer.textContent = quizTimer + " Seconds left";
 let timeLeft;
 //-------------------------- Questions ------------------------
 let questionsAndAnswers = [
@@ -40,8 +40,7 @@ let questionsAndAnswers = [
         question: "Which of the following function of Boolean object returns a string of either 'true' or 'false' depending upon the value of the object?",
         answer: ["toSource()","valueOf()","toString()","None of the above"],
         correctAnswer: "toString()"
-},
-{
+},{
         question: "Which of the following function of String object causes a string to be italic, as if it were in an <i> tag?",
         answer: ["fixed()","fontcolor()","fontsize()","italics()"],
         correctAnswer: "italics()"
@@ -79,8 +78,6 @@ function displayHighscores(){
                 li.textContent = sortByScore[i].name + " ---------- " + sortByScore[i].score;
                 highscoresList.appendChild(li);
         }
-
-
 }
 highscores.addEventListener("click", function(event){
         event.preventDefault();
@@ -101,11 +98,10 @@ submitButton.addEventListener("click", function(event){
         let myScore = 0;
         if (initials.value != ""){
                 if (questionScore != 0 && timeScore != 0 && timeScore >= 0){
-                myScore = Math.round((timeScore * questionScore) / questionsAndAnswers.length);
+                        myScore = Math.round((timeScore * questionScore) / questionsAndAnswers.length);
                 } else {
                         myScore = 0;
                 }
-
                 console.log("timeScore: ",timeScore)
                 console.log("questionScore: ",questionScore)
                 console.log("myScore: ",myScore)
@@ -113,9 +109,7 @@ submitButton.addEventListener("click", function(event){
                 savedClass.score = myScore;
                 storedHighscores.push(savedClass);
                 localStorage.setItem("Highscores", JSON.stringify(storedHighscores));
-                // storedHighscores = JSON.parse(localStorage.getItem("Highscores"));
                 displayHighscores();
-                
                 initials.style =  "display: none";
                 submitButton.style = "display: none";
                 highscores.style = "display: none"
@@ -123,7 +117,7 @@ submitButton.addEventListener("click", function(event){
         }        
 })
 
-///------------------End of Quiz---------------------------
+//------------------End of Quiz---------------------------
 function endOfQuiz(){
         answers.remove();
         correctOrIncorrect.style="display: none"
@@ -137,7 +131,7 @@ function endOfQuiz(){
         clearInterval(timeInterval);
 }
 
-  //---------------------------- Creating Questions -----------------------
+//---------------------------- Creating Questions -----------------------
 function createQuestions() {
             for (var i=0; i < questionsAndAnswers[0].answer.length; i++){
                 var li = document.createElement("li");
@@ -152,7 +146,7 @@ function myTimer(){
         timeInterval = setInterval(function() {
                 timeLeft--;
                 timeScore = timeLeft;
-                timer.textContent = "Time: " + timeLeft + " Seconds left";
+                timer.textContent = timeLeft + " Seconds left";
                 if(timeLeft <= 0 ){
                         clearInterval(timeInterval);
                         timeLeft = quizTimer;
@@ -204,7 +198,6 @@ function start(){
                 y++;
                 }
         })
-   
 };
 
 
