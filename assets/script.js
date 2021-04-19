@@ -75,7 +75,7 @@ function displayHighscores(){
        }); 
         for (var i=0; i < sortByScore.length; i++){
                 var li = document.createElement("li");
-                li.textContent = sortByScore[i].name + " ---------- " + sortByScore[i].score;
+                li.textContent = sortByScore[i].name + " your score is - " + sortByScore[i].score;
                 highscoresList.appendChild(li);
         }
 }
